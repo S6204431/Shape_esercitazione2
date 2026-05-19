@@ -1,0 +1,6 @@
+*.exe
+Compiler/
+html/
+latex/
+*.txt
+*.json
