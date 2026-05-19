@@ -7,7 +7,8 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n"; 
+        cout << "No existing polygon in list.\n";
+        return;
     }
     cout << "==== PRINTING LIST ====" << endl;
     for(int i = 0; i < dim; i++)
@@ -47,9 +48,38 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 
 }
 
-void EditPolygon(Shape* polygonPtr)
+void EditPolygon(Shape** arrayPtr, int dim)
 {
+    if(*arrayPtr == NULL)
+    {
+        cout << "No existing polygon in list.\n";
+        return;
+    }
 
+    int j = 0;
+    cout << "Which polygon do you wanna change?" << endl;
+    inputCheck(j);
+    if(j >= dim)
+    {
+        cout << "Out of list dimension. Returning to main menu." << endl;
+        return;
+    } else
+    {
+        bool input;
+        cout << "What do you want to change? (0=text, 1=dimension)" << endl;
+        inputCheck(input);
+        if(input==0)
+        {
+            char* text;
+            inputCheck(text);
+        }else
+        {
+
+        }
+        
+    }
+
+    
 }
 
 void MovePolygon(Shape* polygonPtr)
