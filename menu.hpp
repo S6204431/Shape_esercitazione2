@@ -8,7 +8,7 @@
 using namespace std;
 
 void PrintList(Shape** arrayPtr, int dim);
-void EditPolygon(Shape* polygonPtr);
+void EditPolygon(Shape** arrayPtr, int dim);
 void MovePolygon(Shape* polygonPtr);
 Shape* NewPolygon();
 void DeletePolygon(Shape* polygonPtr);
