@@ -5,13 +5,15 @@
 #include <iostream>
 #define MAX_IN_LENGHT 10000
 #define YN_WHITELIST_LENGHT 4
+#define TD_WHITELIST_LENGHT 4
 #define MAX_SHAPES 10
 
 
 
 using namespace std;
 
-const string YNWhitelist[YN_WHITELIST_LENGHT] = {"y", "n", "Y", "N"};
+const string YNWhitelist[YN_WHITELIST_LENGHT] = {"y", "n", "Y", "N"};       //yes e no
+const string TDWhitelist[TD_WHITELIST_LENGHT] = {"t", "d", "T", "D"};       //text e dimension
 
 void PrintList(Shape** arrayPtr, int dim);
 void EditPolygon(Shape** arrayPtr, int dim);
@@ -20,7 +22,7 @@ Shape* NewPolygon();
 void DeletePolygon(Shape* polygonPtr);
 void EraseList(Shape** arrayPtr);
 
-bool YNCheck(string question);
+bool DoubleChoiceCheck(string question, const string whiteList[], int lenght);
 int PolygonSelection(string question, int dim);
 
 
