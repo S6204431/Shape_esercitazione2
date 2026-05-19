@@ -14,14 +14,15 @@ Shape* NewPolygon();
 void DeletePolygon(Shape* polygonPtr);
 void EraseList(Shape** arrayPtr);
 template <class T>
-void inputCheck(T check)
+void inputCheck(T* check)
 {
-    while (!(cin >> check))
+    while (!(cin >> *check))
     {
         cin.clear(); // Resetta lo stato di errore di cin
         cin.ignore(MAX_IN_LENGHT, '\n'); // Svuota il buffer
-        cout << "Error: invalid input. Use 0 or 1: ";
+        cout << "Error: invalid input.";
     }
+    return;
 }
 
 #endif
