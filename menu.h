@@ -4,8 +4,14 @@
 #include "Cshape.h"
 #include <iostream>
 #define MAX_IN_LENGHT 10000
+#define YN_WHITELIST_LENGHT 4
+#define MAX_SHAPES 10
+
+
 
 using namespace std;
+
+const string YNWhitelist[YN_WHITELIST_LENGHT] = {"y", "n", "Y", "N"};
 
 void PrintList(Shape** arrayPtr, int dim);
 void EditPolygon(Shape** arrayPtr, int dim);
@@ -13,7 +19,12 @@ void MovePolygon(Shape* polygonPtr);
 Shape* NewPolygon();
 void DeletePolygon(Shape* polygonPtr);
 void EraseList(Shape** arrayPtr);
-template <class T>
+
+bool YNCheck(string question);
+int PolygonSelection(string question, int dim);
+
+
+/*template <class T>
 void inputCheck(T* check)
 {
     while (!(cin >> *check))
@@ -23,6 +34,6 @@ void inputCheck(T* check)
         cout << "Error: invalid input.";
     }
     return;
-}
+}*/
 
 #endif

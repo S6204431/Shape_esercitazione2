@@ -5,11 +5,9 @@
 #include "CRectangle.h"
 #include "CRhombus.h"
 #include "CRightTriangle.h"
-#include "menu.hpp"
+#include "menu.h"
 
 using namespace std;
-
-#define MAX_SHAPES 10
 
 int main()
 {   
