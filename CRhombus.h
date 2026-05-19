@@ -49,6 +49,7 @@ public:
     /// @name DEBUG and SERIALIZATION
     /// @{
     void Dump();
+    void SpecificDump();
     /// @}
 };
 

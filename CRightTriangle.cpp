@@ -138,9 +138,11 @@ void RightTriangle::Dump()
 {
 	cout << endl <<  "----------------------" << endl;
     cout << "RightTriangle Dump:" << endl << endl;
-	
 	Shape::Dump();
-	
+}
+
+void RightTriangle::SpecificDump()
+{
    	cout << "  Figure hypotenuse:   " << GetHypotenuse() << endl;
     cout << "  Figure area:         " << GetArea() << endl;
     cout << "  Figure perimeter:    " << GetPerimeter() << endl;

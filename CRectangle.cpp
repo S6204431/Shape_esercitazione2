@@ -130,10 +130,11 @@ void Rectangle::Dump()
 {
 	cout << endl <<  "----------------------" << endl;
     cout << "Rectangle Dump:" << endl << endl;
-	
 	Shape::Dump();
-	
-    
+}
+
+void Rectangle::SpecificDump()
+{        
     cout << "  Figure area:         " << GetArea() << endl;
     cout << "  Figure perimeter:    " << GetPerimeter() << endl;
     cout << "  Text:                " << (text ? text : "(null)") << endl;

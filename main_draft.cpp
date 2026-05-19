@@ -11,7 +11,7 @@ using namespace std;
 #define MAX_SHAPES 10
 
 int main()
-{
+{   
     Shape* shapes[MAX_SHAPES];
     int nShapes = 0;
 
@@ -46,6 +46,7 @@ int main()
     for (int i = 0; i < nShapes; i++) {
         cout << endl << "Figura [" << i << "]" << endl;
         shapes[i]->Dump();
+        shapes[i]->SpecificDump();
     }
 
 
