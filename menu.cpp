@@ -23,7 +23,7 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
     cout << endl << "==== END LIST ====" << endl;
 
 
-    if(ChoiceCheck("Want to know something specific about a polygon? [y/n] ", YNWhitelist, YN_WHITELIST_LENGHT, 2))
+    if(!ChoiceCheck("Want to know something specific about a polygon? [y/n] ", YNWhitelist, YN_WHITELIST_LENGHT, 2))
     {
         int j = 0;
         //gestione j>dim e j è indirizzo null
@@ -50,7 +50,7 @@ void EditPolygon(Shape** arrayPtr, int dim)
 
     j = PolygonSelection("Which polygon do you wanna change?", dim);
 
-    if(ChoiceCheck(("What do you want to change? (t=text, d=dimension)"), TDWhitelist, TD_WHITELIST_LENGHT, 2))    //cioe se è t o T
+    if(!ChoiceCheck(("What do you want to change? (t=text, d=dimension)"), TDWhitelist, TD_WHITELIST_LENGHT, 2))    //cioe se è t o T
     {
         editText(arrayPtr, j);
         
@@ -76,23 +76,28 @@ void MovePolygon(Shape** arrayPtr, int dim)
 
 void NewPolygon(Shape** arrayPtr, int *dim)
 {
-    int choice = ChoiceCheck(("Which shape do you want? (a=rectangle, b=rhomus, c=right_triangle)"), TDWhitelist, TD_WHITELIST_LENGHT, 3);
-    int newX;
-    int newY;
-    int newH;
-    int newW;
-    string text;
+    int choice = ChoiceCheck(("Which shape do you want? (a=rectangle, b=rhomus, c=right_triangle)"), SHWhitelist, SH_WHITELIST_LENGHT, 3);
+
     if(choice == 0) 
     {
-        arrayPtr[*dim++] = new Rectangle();
-        editDim(arrayPtr, *dim);
+        arrayPtr[*dim] = new Rectangle();
+        cout <<"default rectangle was created (all = 0)" << endl;
     } else if(choice == 1)
     {
-        
+        arrayPtr[*dim] = new Rhombus();
+        cout <<"default rhombus was created (all = 0)" << endl;
     } else
     {
+        arrayPtr[*dim] = new RightTriangle();
+        cout <<"default right_triangle was created (all = 0)" << endl;
+    }
 
-    }      
+    cout << "\nEnter position: " << endl;
+    editPosition(arrayPtr, *dim);
+    cout << "Enter dimensions: " << endl;
+    editDim(arrayPtr, *dim);
+    editText(arrayPtr, *dim);
+    (*dim)++;
 }
 
 void DeletePolygon(Shape* polygonPtr)
@@ -122,7 +127,7 @@ int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoi
             if(a == whiteList[i])
             {
                 cin.ignore(MAX_IN_LENGHT, '\n');      
-                return !(i%nChoices);
+                return (i%nChoices);
             }
         }
         cout << "Error: invalid input." << endl;
@@ -168,15 +173,18 @@ int PolygonSelection(string question, int dim)
 
 float EnterDim(string question)
 {
-    int newDim;
+    float newDim;
 
     while (true)
     {
         cout << question;
-        cin >> newDim;
-        if ((cin.peek() == '\n' || cin.peek() == ' ' || cin.peek() == EOF) && newDim >= 0) {
-            cin.ignore(MAX_IN_LENGHT, '\n'); 
-            break;
+        if(cin >> newDim)
+        {
+            if ((cin.peek() == '\n' || cin.peek() == ' ' || cin.peek() == EOF) && newDim >= 0)
+            {
+                cin.ignore(MAX_IN_LENGHT, '\n'); 
+                break;
+            }
         }
         cout << "Error: enter a valid floating positive number.\n";
         cin.clear();
@@ -196,7 +204,7 @@ void editDim(Shape** arrayPtr, int index)
         //uso i getters e i setters per confrontare con la griglia ed eventualmente modificare le dimensioni
         if ((arrayPtr[index]->GetX() + newW > 100.0) || (arrayPtr[index]->GetY() + newH > 100.0))
         {
-            cout << "Error: new bounding box exceeds the grid. No dimensions were changed.\n";
+            cout << "Error: bounding box exceeds the grid.\n";
         } else
         {
             arrayPtr[index]->SetDim(newW, newH);
@@ -215,7 +223,7 @@ void editPosition(Shape** arrayPtr, int index)
     //uso i getters e i setters per confrontare con la griglia ed eventualmente modificare le dimensioni
     if ((arrayPtr[index]->GetWidth() + newX > 100.0) || (arrayPtr[index]->GetHeight() + newY > 100.0))
     {
-        cout << "Error: new bounding box exceeds the grid. No dimensions were changed.\n";
+        cout << "Error: bounding box exceeds the grid.\n";
     } else
     {
         arrayPtr[index]->SetPosition(newX, newY);
