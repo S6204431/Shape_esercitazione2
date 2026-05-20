@@ -40,7 +40,11 @@ int main()
         cout << endl << "Figura [" << i << "]" << endl;
         shapes[i]->Dump();
     }*/
-   PrintList(&shapes[0], nShapes);
+
+    //PrintList(&shapes[0], nShapes);
+    EditPolygon(&shapes[0], nShapes);
+    //MovePolygon(&shapes[0], nShapes);
+    //PrintList(&shapes[0], nShapes);
 
     // 4. Test funzione scale
     /*cout << endl << "===== DUMP RISCALATO =====" << endl;
