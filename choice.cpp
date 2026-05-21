@@ -1,8 +1,19 @@
+/*! \file choice.cpp
+    \brief Implementation of input handling functions
+    \author Alessandro Passaggio - Gregorio Bertelli
+*/
+
 #include "choice.h"
 #include <iostream>
 
 using namespace std;
 
+/// @brief asks a question and checks if the input is in a whitelist
+/// @param question the question shown to the user
+/// @param whiteList array of allowed strings
+/// @param lenght lenght of the whitelist array
+/// @param nChoices number of valid choices
+/// @return the logic index of the choice
 int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoices)
 {
     cout << question;
@@ -24,6 +35,10 @@ int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoi
 
 }
 
+/// @brief asks the user to select an index of a polygon inside valid bounds
+/// @param question the question printed to the user
+/// @param dim current number of polygons
+/// @return the selected valid index
 int PolygonSelection(string question, int dim)
 {
     cout << question;
@@ -60,6 +75,9 @@ int PolygonSelection(string question, int dim)
     }
 }
 
+/// @brief asks the user to enter a dimension
+/// @param question the question printed to the user
+/// @return the dimension chosen
 float EnterDim(string question)
 {
     float newDim;

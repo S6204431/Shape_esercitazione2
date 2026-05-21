@@ -1,11 +1,18 @@
+/*! \file editors.cpp
+    \brief Implementation of editing functions for polygons
+    \author Alessandro Passaggio - Gregorio Bertelli
+*/
+
 #include "CShape.h"
 #include "editors.h"
 #include "choice.h"
-
 #include <iostream>
 
 using namespace std;
 
+/// @brief editing the dimensions of a polygon
+/// @param arrayPtr array of shape pointers
+/// @param index the index of the shape to be modified
 void editDim(Shape** arrayPtr, int index)
 {
     float newW, newH;       //le nuove dimensioni
@@ -33,7 +40,9 @@ void editDim(Shape** arrayPtr, int index)
     }
 }
 
-
+/// @brief editing the position of a polygon
+/// @param arrayPtr array of shape pointers
+/// @param index the index of the shape to be modified
 void editPosition(Shape** arrayPtr, int index)
 {
     float newX, newY;       //le nuove posizioni
@@ -60,7 +69,9 @@ void editPosition(Shape** arrayPtr, int index)
     }
 }
 
-
+/// @brief edits the text of a polygon
+/// @param arrayPtr array of shape pointers
+/// @param index the index of the shape to be modified
 void editText(Shape** arrayPtr, int index)
 {
     cout << "Enter text: ";

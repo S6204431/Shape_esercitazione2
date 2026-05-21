@@ -1,3 +1,8 @@
+/*! \file main.cpp
+    \brief Main program, testing
+    \author Alessandro Passaggio - Gregorio Bertelli
+*/
+
 #include <iostream>
 #include <cmath>
 
@@ -9,6 +14,8 @@
 
 using namespace std;
 
+/// @brief main function
+/// @return exit code
 int main()
 {   
     Shape* shapes[MAX_SHAPES];

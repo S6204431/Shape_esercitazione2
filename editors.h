@@ -1,3 +1,8 @@
+/*! \file editors.h
+    \brief Declaration of editing functions for polygons
+    \author Alessandro Passaggio - Gregorio Bertelli
+*/
+
 #ifndef EDITORS_H
 #define EDITORS_H
 
@@ -10,8 +15,11 @@
 
 using namespace std;
 
+/// @name EDIT FUNCTIONS
+/// @{
 void editDim(Shape** arrayPtr, int index);
 void editPosition(Shape** arrayPtr, int index);
 void editText(Shape** arrayPtr, int index);
+/// @}
 
 #endif

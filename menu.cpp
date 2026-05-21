@@ -1,3 +1,8 @@
+/*! \file menu.cpp
+    \brief Implementation of menu functions
+    \author Alessandro Passaggio - Gregorio Bertelli
+*/
+
 #include "CShape.h"
 #include "CRectangle.h"
 #include "CRhombus.h"
@@ -9,6 +14,10 @@
 
 
 using namespace std;
+
+/// @brief prints all shapes in the list and, if wanted, details a specific one
+/// @param arrayPtr array of shape pointers
+/// @param dim current number of polygons
 void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 {
     if(*arrayPtr == NULL)
@@ -41,6 +50,9 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 
 }
 
+/// @brief editing of a polygon
+/// @param arrayPtr array of shape pointers
+/// @param dim current number of polygons
 void EditPolygon(Shape** arrayPtr, int dim)
 {
     if(*arrayPtr == NULL)
@@ -63,6 +75,9 @@ void EditPolygon(Shape** arrayPtr, int dim)
     }        
 }
 
+/// @brief moving a polygon on the grid
+/// @param arrayPtr array of shape pointers
+/// @param dim current number of polygons
 void MovePolygon(Shape** arrayPtr, int dim)
 {
     if(*arrayPtr == NULL)
@@ -77,6 +92,9 @@ void MovePolygon(Shape** arrayPtr, int dim)
           
 }
 
+/// @brief creation of a new polygon
+/// @param arrayPtr array of shape pointers
+/// @param dim pointer to current number of polygons
 void NewPolygon(Shape** arrayPtr, int *dim)
 {
     if(*dim == MAX_SHAPES)
@@ -109,6 +127,9 @@ void NewPolygon(Shape** arrayPtr, int *dim)
     (*dim)++;
 }
 
+/// @brief deleting a specific polygon
+/// @param arrayPtr array of shape pointers
+/// @param dim pointer to current number of polygons
 void DeletePolygon(Shape** arrayPtr, int *dim)
 {
     if(*arrayPtr == NULL)
@@ -128,6 +149,9 @@ void DeletePolygon(Shape** arrayPtr, int *dim)
     arrayPtr[*dim] = NULL;
 }
 
+/// @brief deletes all polygons in the list
+/// @param arrayPtr array of shape pointers
+/// @param dim current number of polygons, by reference
 void DeleteList(Shape** arrayPtr, int *dim)
 {
     if(*arrayPtr == NULL)
@@ -150,6 +174,8 @@ void DeleteList(Shape** arrayPtr, int *dim)
     (*dim) = 0;
 }
 
+/// @brief prints the main menu and gets the user's choice
+/// @return the selected menu option
 int menu()
 {
     cout << "\nSELECT YOUR CHOICE:\n" << endl;
