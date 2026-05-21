@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "Cshape.h"
+#include "CShape.h"
 #include "editors.h"
 #include "choice.h"
 #include <iostream>

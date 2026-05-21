@@ -13,7 +13,7 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n";
+        cout << "\n====ERROR: No existing polygon in list.====\n";
         return;
     }
     cout << "==== PRINTING LIST ====" << endl;
@@ -45,7 +45,7 @@ void EditPolygon(Shape** arrayPtr, int dim)
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n";
+        cout << "====ERROR: No existing polygon in list.====\n";
         return;
     }
 
@@ -67,7 +67,7 @@ void MovePolygon(Shape** arrayPtr, int dim)
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n";
+        cout << "\n====ERROR: No existing polygon in list.====\n";
         return;
     }
 
@@ -90,15 +90,15 @@ void NewPolygon(Shape** arrayPtr, int *dim)
     if(choice == 0) 
     {
         arrayPtr[*dim] = new Rectangle();
-        cout <<"Default rectangle was created (all = 0)" << endl;
+        cout <<"A rectangle was created by default." << endl;
     } else if(choice == 1)
     {
         arrayPtr[*dim] = new Rhombus();
-        cout <<"Default rhombus was created (all = 0)" << endl;
+        cout <<"A rhombus was created by default." << endl;
     } else
     {
         arrayPtr[*dim] = new RightTriangle();
-        cout <<"Default right_triangle was created (all = 0)" << endl;
+        cout <<"A right_triangle was created by default." << endl;
     }
 
     cout << "\nEnter position: " << endl;
@@ -113,7 +113,7 @@ void DeletePolygon(Shape** arrayPtr, int *dim)
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n";
+        cout << "\n====ERROR: No existing polygon in list.====\n";
         return;
     }
 
@@ -132,7 +132,7 @@ void DeleteList(Shape** arrayPtr, int *dim)
 {
     if(*arrayPtr == NULL)
     {
-        cout << "No existing polygon in list.\n";
+        cout << "\n====ERROR: No existing polygon in list.====\n";
         return;
     }
 

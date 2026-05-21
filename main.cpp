@@ -47,7 +47,7 @@ int main()
             DeleteList(&shapes[0], &nShapes);
             break;
         case 0:
-            cout << "Exit the program." << endl;
+            cout << "\nExiting the program." << endl;
             break;
         default:
             printf("\nNot possible\n");
@@ -61,6 +61,7 @@ int main()
         if(shapes[i] != NULL)
         {
             delete(shapes[i]);
+            shapes[i] = NULL;
         }
     }
 
