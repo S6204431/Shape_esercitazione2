@@ -3,6 +3,8 @@
 #include "CRhombus.h"
 #include "CRightTriangle.h"
 #include "menu.h"
+#include "choice.h"
+#include "editors.h"
 #include <iostream>
 
 
@@ -17,17 +19,18 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
     cout << "==== PRINTING LIST ====" << endl;
     for(int i = 0; i < dim; i++)
     {
-        
+        cout << "\nSHAPE NUMBER " << i;
         arrayPtr[i]->Dump();
     }
     cout << endl << "==== END LIST ====" << endl;
 
 
-    if(!ChoiceCheck("Want to know something specific about a polygon? [y/n] ", YNWhitelist, YN_WHITELIST_LENGHT, 2))
+    if(!ChoiceCheck("Want to know something specific about a polygon? [y/n] ", YNWhitelist, YN_WHITELIST_LENGHT, YN_WHITELIST_CHOICES))
     {
         int j = 0;
         //gestione j>dim e j è indirizzo null
-        j = PolygonSelection("Which one of the polygons in the list you want to know about?", dim);
+        j = PolygonSelection("Which one of the polygons in the list you want to know about? ", dim);
+        cout << "\nSHAPE NUMBER " << j;
         arrayPtr[j]->Dump();
         arrayPtr[j]->SpecificDump();
     }
@@ -48,9 +51,9 @@ void EditPolygon(Shape** arrayPtr, int dim)
 
     int j = 0;
 
-    j = PolygonSelection("Which polygon do you wanna change?", dim);
+    j = PolygonSelection("Which polygon do you wanna change? ", dim);
 
-    if(!ChoiceCheck(("What do you want to change? (t=text, d=dimension)"), TDWhitelist, TD_WHITELIST_LENGHT, 2))    //cioe se è t o T
+    if(!ChoiceCheck(("What do you want to change? (t=text, d=dimension) "), TDWhitelist, TD_WHITELIST_LENGHT, TD_WHITELIST_CHOICES))    //cioe se è t o T
     {
         editText(arrayPtr, j);
         
@@ -68,7 +71,7 @@ void MovePolygon(Shape** arrayPtr, int dim)
         return;
     }
 
-    int j = PolygonSelection("Which polygon do you wanna move?", dim);
+    int j = PolygonSelection("Which polygon do you wanna move? ", dim);
 
     editPosition(arrayPtr, j);
           
@@ -76,20 +79,26 @@ void MovePolygon(Shape** arrayPtr, int dim)
 
 void NewPolygon(Shape** arrayPtr, int *dim)
 {
-    int choice = ChoiceCheck(("Which shape do you want? (a=rectangle, b=rhomus, c=right_triangle)"), SHWhitelist, SH_WHITELIST_LENGHT, 3);
+    if(*dim == MAX_SHAPES)
+    {
+        cout << "\nImpossible to create other shapes, the array is full." << endl;
+        return;
+    }
+    
+    int choice = ChoiceCheck(("Which shape do you want? (a=rectangle, b=rhomus, c=right_triangle) "), SHWhitelist, SH_WHITELIST_LENGHT, SH_WHITELIST_CHOICES);
 
     if(choice == 0) 
     {
         arrayPtr[*dim] = new Rectangle();
-        cout <<"default rectangle was created (all = 0)" << endl;
+        cout <<"Default rectangle was created (all = 0)" << endl;
     } else if(choice == 1)
     {
         arrayPtr[*dim] = new Rhombus();
-        cout <<"default rhombus was created (all = 0)" << endl;
+        cout <<"Default rhombus was created (all = 0)" << endl;
     } else
     {
         arrayPtr[*dim] = new RightTriangle();
-        cout <<"default right_triangle was created (all = 0)" << endl;
+        cout <<"Default right_triangle was created (all = 0)" << endl;
     }
 
     cout << "\nEnter position: " << endl;
@@ -100,143 +109,57 @@ void NewPolygon(Shape** arrayPtr, int *dim)
     (*dim)++;
 }
 
-void DeletePolygon(Shape* polygonPtr)
+void DeletePolygon(Shape** arrayPtr, int *dim)
 {
-
-}
-
-void EraseList(Shape** arrayPtr)
-{
-
-}
-
-
-
-
-
-int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoices)
-{
-    cout << question << endl;
-
-    string a;
-    while(true)
+    if(*arrayPtr == NULL)
     {
-        cin >> a;
-        for(int i=0; i<lenght; i++)
-        {
-            if(a == whiteList[i])
-            {
-                cin.ignore(MAX_IN_LENGHT, '\n');      
-                return (i%nChoices);
-            }
-        }
-        cout << "Error: invalid input." << endl;
+        cout << "No existing polygon in list.\n";
+        return;
     }
 
-}
-
-int PolygonSelection(string question, int dim)
-{
-    cout << question << endl;
-
-    int a;
-    while(true)
+    int j = PolygonSelection("Which polygon do you wanna delete? ", *dim);
+    delete(arrayPtr[j]);
+    cout << "\nShape number " << j << " deleted: shifting the other shapes order." << endl;
+    for (int i = j; i < *dim - 1; i++)
     {
-        if(cin >> a)
-        {
-            char nextChar = cin.peek();     //senza estrarlo, controlla il carattere nel buffer di input subito successivo al primo, che è stato buttato dentro "a"
-            if(nextChar != '\n' && nextChar != ' ' && nextChar != EOF)  //se non è uno stacco, quindi o un accapo o uno spazio o l'end of file...
-            {
-                cout << "Error: the input must be an integer: no decimals allowed." << endl;
-                cin.clear();    //PROMEMORIA: FORSE HA SENSO METTERE IN FUNZIONE QUESTE DUE RIGHE CHE SI RIPETONO SPESSO
-                cin.ignore(MAX_IN_LENGHT, '\n');    //cestina il resto della riga fino all'accapo
-                continue; // torna all'inizio del while
-            }
-            if(a >= dim || a < 0)
-            {
-                cout << "Out of list dimension." << endl;
-                continue;
-            }else
-            {
-                cin.ignore(MAX_IN_LENGHT, '\n');    //per dopo, svuotiamo dall'invio il buffer di inut
-                return a;
-            }
-                
-        } else
-        {
-            cout << "Error: invalid input." << endl;
-            cin.clear(); // Resetta lo stato di errore di cin
-            cin.ignore(MAX_IN_LENGHT, '\n'); // Svuota il buffer
-        }
+        arrayPtr[i] = arrayPtr[i + 1];
     }
+    (*dim)--;
+    arrayPtr[*dim] = NULL;
 }
 
-float EnterDim(string question)
+void DeleteList(Shape** arrayPtr, int *dim)
 {
-    float newDim;
-
-    while (true)
+    if(*arrayPtr == NULL)
     {
-        cout << question;
-        if(cin >> newDim)
-        {
-            if ((cin.peek() == '\n' || cin.peek() == ' ' || cin.peek() == EOF) && newDim >= 0)
-            {
-                cin.ignore(MAX_IN_LENGHT, '\n'); 
-                break;
-            }
-        }
-        cout << "Error: enter a valid floating positive number.\n";
-        cin.clear();
-        cin.ignore(MAX_IN_LENGHT, '\n');
+        cout << "No existing polygon in list.\n";
+        return;
     }
 
-    return newDim;
-}
-
-void editDim(Shape** arrayPtr, int index)
-{
-        float newW, newH;       //le nuove dimensioni
-
-        newW = EnterDim("Enter width: ");
-        newH = EnterDim("Enter height: ");
-
-        //uso i getters e i setters per confrontare con la griglia ed eventualmente modificare le dimensioni
-        if ((arrayPtr[index]->GetX() + newW > 100.0) || (arrayPtr[index]->GetY() + newH > 100.0))
+    for (int i = 0; i < *dim; i++)
+    {
+        if(arrayPtr[i] != NULL)
         {
-            cout << "Error: bounding box exceeds the grid.\n";
-        } else
-        {
-            arrayPtr[index]->SetDim(newW, newH);
-            cout << "Dimensions successfully updated.\n" << endl;
+            delete(arrayPtr[i]);
+            arrayPtr[i] = NULL;
         }
-}
-
-
-void editPosition(Shape** arrayPtr, int index)
-{
-    float newX, newY;       //le nuove posizioni
-
-    newX = EnterDim("Enter x position: ");
-    newY = EnterDim("Enter y position: ");
-
-    //uso i getters e i setters per confrontare con la griglia ed eventualmente modificare le dimensioni
-    if ((arrayPtr[index]->GetWidth() + newX > 100.0) || (arrayPtr[index]->GetHeight() + newY > 100.0))
-    {
-        cout << "Error: bounding box exceeds the grid.\n";
-    } else
-    {
-        arrayPtr[index]->SetPosition(newX, newY);
-        cout << "Dimensions successfully updated.\n" << endl;
     }
+
+    cout << "\nAll shapes have been deleted." << endl;
+
+    (*dim) = 0;
 }
 
-
-void editText(Shape** arrayPtr, int index)
+int menu()
 {
-        cout << "Enter text: ";
-        char newText[MAX_IN_LENGHT];
-        cin.getline(newText, MAX_IN_LENGHT);    //non posso usare cin altrimenti se ci sono spazi si ferma
-        arrayPtr[index]->SetText(newText);
-        cout << "The text was successfully changed." << endl;
+    cout << "\nSELECT YOUR CHOICE:\n" << endl;
+    cout << "-Press 1 to visualize all polygons" << endl;
+    cout << "-Press 2 to modify a polygon" << endl;
+    cout << "-Press 3 to move a polygon" << endl;
+    cout << "-Press 4 to create a polygon" << endl;
+    cout << "-Press 5 to delete a polygon" << endl;
+    cout << "-Press 6 to delete all polygons" << endl;
+    cout << "-Press 0 to exit" << endl;
+
+    return ChoiceCheck("Enter: ", MNWhitelist, MN_WHITELIST_LENGHT, MN_WHITELIST_CHOICES);
 }

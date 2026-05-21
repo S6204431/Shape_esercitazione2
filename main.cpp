@@ -13,51 +13,48 @@ int main()
 {   
     Shape* shapes[MAX_SHAPES];
     
-    for (int i = 0; i < MAX_SHAPES; i++) {
+    for (int i = 0; i < MAX_SHAPES; i++)
+    {
         shapes[i] = NULL;
     }
     
     int nShapes = 0;
+    int choice = -1;
 
     cout << "===== TEST GERARCHIA SHAPE =====" << endl;
 
-    // 1. Creazione figure
-    shapes[nShapes++] = new Rectangle(0, 0, 10, -6);    //darà un perimetro di 20 dopo il clamp a 0 di -6: topologicamente è corretto anche se un segmento non racchiude alcuna area...
-    shapes[nShapes++] = new Rhombus(2, 2, 3, 4);
-    shapes[nShapes++] = new RightTriangle(0, 0, 10, 5);
-
-
-    // 2. Impostazione testo
-    shapes[0]->SetText("rettangolo");
-    shapes[1]->SetText("rombo");
-    shapes[2]->SetText("triangolo destro");
-
-
-    // 3. Dump polimorfico
-    /*cout << endl << "===== DUMP POLIMORFICO =====" << endl;
-
-    for (int i = 0; i < nShapes; i++) {
-        cout << endl << "Figura [" << i << "]" << endl;
-        shapes[i]->Dump();
-    }*/
-
-    PrintList(&shapes[0], nShapes);
-    NewPolygon(&shapes[0], &nShapes);
-    //EditPolygon(&shapes[0], nShapes);
-    //MovePolygon(&shapes[0], nShapes);
-    PrintList(&shapes[0], nShapes);
-
-    // 4. Test funzione scale
-    /*cout << endl << "===== DUMP RISCALATO =====" << endl;
-    shapes[0]->Scale(0.5);
-    shapes[1]->Scale(2.5);
-    shapes[2]->Scale(-1);
-
-    for (int i = 0; i < nShapes; i++) {
-        cout << endl << "Figura [" << i << "]" << endl;
-        shapes[i]->Dump();
-    }*/
-
+    while(choice != 0)
+    {
+        choice = menu();
+        switch (choice)
+        {
+        case 1:
+            PrintList(&shapes[0], nShapes);
+            break;
+        case 2:
+            EditPolygon(&shapes[0], nShapes);
+            break;
+        case 3:
+            MovePolygon(&shapes[0], nShapes);
+            break;
+        case 4:
+            NewPolygon(&shapes[0], &nShapes);
+            break;
+        case 5:
+            DeletePolygon(&shapes[0], &nShapes);
+            break;
+        case 6:
+            DeleteList(&shapes[0], &nShapes);
+            break;
+        case 0:
+            cout << "Exit the program." << endl;
+            break;
+        default:
+            printf("\nNot possible\n");
+            exit(-1);
+            break;
+        }
+    }
 
     // 5. delete shapes
     for (int i = 0; i < nShapes; i++) {
