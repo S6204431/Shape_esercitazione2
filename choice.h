@@ -22,6 +22,7 @@ using namespace std;
 
 /// @name WHITELISTS
 /// @{
+//è importantissimo che le liste siano ordinate in questo modo alternato, per via di come è implementata la funzione ChoiceCheck
 const string YNWhitelist[YN_WHITELIST_LENGHT] = {"y", "n", "Y", "N"};                   //yes e no
 const string TDWhitelist[TD_WHITELIST_LENGHT] = {"t", "d", "T", "D"};                   //text e dimension
 const string SHWhitelist[SH_WHITELIST_LENGHT] = {"a", "b", "c", "A", "B", "C"};         //shapes

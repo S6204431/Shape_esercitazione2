@@ -26,6 +26,7 @@ void editDim(Shape** arrayPtr, int index)
         if ((arrayPtr[index]->GetX() + newW > GRID_X_LENGHT) || (arrayPtr[index]->GetY() + newH > GRID_Y_LENGHT))
         {
             cout << "Error: bounding box exceeds the grid.\n";
+            //via d'uscita per evitare che l'utente resti in un loop infinito
             if(ChoiceCheck("Want to try again? (y/n) ", YNWhitelist, YN_WHITELIST_LENGHT, YN_WHITELIST_CHOICES) == 1)
             {
                 cout << "Exiting the edit; returning to menu.\n" << endl;

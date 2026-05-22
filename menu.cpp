@@ -20,6 +20,7 @@ using namespace std;
 /// @param dim current number of polygons
 void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
 {
+    //controllo se è vuota
     if(*arrayPtr == NULL)
     {
         cout << "\n====ERROR: No existing polygon in list.====\n";
@@ -33,11 +34,10 @@ void PrintList(Shape** arrayPtr, int dim) //presuppone pop e push
     }
     cout << endl << "==== END LIST ====" << endl;
 
-
+    //chiede all'utente se vuole il dump specifico di un poligono in lista
     if(!ChoiceCheck("Want to know something specific about a polygon? [y/n] ", YNWhitelist, YN_WHITELIST_LENGHT, YN_WHITELIST_CHOICES))
     {
         int j = 0;
-        //gestione j>dim e j è indirizzo null
         j = PolygonSelection("Which one of the polygons in the list you want to know about? ", dim);
         cout << "\nSHAPE NUMBER " << j;
         arrayPtr[j]->Dump();
@@ -62,9 +62,10 @@ void EditPolygon(Shape** arrayPtr, int dim)
     }
 
     int j = 0;
-
+    //scelgo l'indice da modificare
     j = PolygonSelection("Which polygon do you wanna change? ", dim);
-
+    
+    //utente sceglie se modificare testo o dimensioni
     if(!ChoiceCheck(("What do you want to change? (t=text, d=dimension) "), TDWhitelist, TD_WHITELIST_LENGHT, TD_WHITELIST_CHOICES))    //cioe se è t o T
     {
         editText(arrayPtr, j);
@@ -88,6 +89,7 @@ void MovePolygon(Shape** arrayPtr, int dim)
 
     int j = PolygonSelection("Which polygon do you wanna move? ", dim);
 
+    // delego diretto a editposition che ha gia tutti i controlli sui confini
     editPosition(arrayPtr, j);
           
 }
@@ -97,6 +99,7 @@ void MovePolygon(Shape** arrayPtr, int dim)
 /// @param dim pointer to current number of polygons
 void NewPolygon(Shape** arrayPtr, int *dim)
 {
+    // evito problemi se si supera il massimo
     if(*dim == MAX_SHAPES)
     {
         cout << "\nImpossible to create other shapes, the array is full." << endl;
@@ -105,6 +108,7 @@ void NewPolygon(Shape** arrayPtr, int *dim)
     
     int choice = ChoiceCheck(("Which shape do you want? (a=rectangle, b=rhomus, c=right_triangle) "), SHWhitelist, SH_WHITELIST_LENGHT, SH_WHITELIST_CHOICES);
 
+    // creo la classe figlia giusta
     if(choice == 0) 
     {
         arrayPtr[*dim] = new Rectangle();
@@ -119,11 +123,13 @@ void NewPolygon(Shape** arrayPtr, int *dim)
         cout <<"A right_triangle was created by default." << endl;
     }
 
+    //l'utente imposta i dati
     cout << "\nEnter position: " << endl;
     editPosition(arrayPtr, *dim);
     cout << "Enter dimensions: " << endl;
     editDim(arrayPtr, *dim);
     editText(arrayPtr, *dim);
+    //aggiorno la quantità di figure
     (*dim)++;
 }
 
@@ -141,6 +147,8 @@ void DeletePolygon(Shape** arrayPtr, int *dim)
     int j = PolygonSelection("Which polygon do you wanna delete? ", *dim);
     delete(arrayPtr[j]);
     cout << "\nShape number " << j << " deleted: shifting the other shapes order." << endl;
+    
+    // shifto tutti gli elementi successivi a sinistra cosi chiudo il buco nell'array
     for (int i = j; i < *dim - 1; i++)
     {
         arrayPtr[i] = arrayPtr[i + 1];

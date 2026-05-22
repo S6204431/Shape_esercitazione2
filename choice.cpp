@@ -19,6 +19,7 @@ int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoi
     cout << question;
 
     string a;
+    // loop finche non trova un elemento che esiste nella whitelist
     while(true)
     {
         cin >> a;
@@ -26,7 +27,9 @@ int ChoiceCheck(string question, const string whiteList[], int lenght, int nChoi
         {
             if(a == whiteList[i])
             {
-                cin.ignore(MAX_IN_LENGHT, '\n');      
+                //pulisco il buffer dall'invio prima di returnare
+                cin.ignore(MAX_IN_LENGHT, '\n');   
+                //uso il remainder: funziona per come sono ordinate le liste   
                 return (i%nChoices);
             }
         }
@@ -52,10 +55,11 @@ int PolygonSelection(string question, int dim)
             if(nextChar != '\n' && nextChar != ' ' && nextChar != EOF)  //se non è uno stacco, quindi o un accapo o uno spazio o l'end of file...
             {
                 cout << "Error: the input must be an integer: no decimals allowed." << endl;
-                cin.clear();    //PROMEMORIA: FORSE HA SENSO METTERE IN FUNZIONE QUESTE DUE RIGHE CHE SI RIPETONO SPESSO
-                cin.ignore(MAX_IN_LENGHT, '\n');    //cestina il resto della riga fino all'accapo
+                cin.clear();
+                cin.ignore(MAX_IN_LENGHT, '\n');    //cestina il resto della riga fino all'a capo
                 continue; // torna all'inizio del while
             }
+            //controllo se l'indice esiste davvero
             if(a >= dim || a < 0)
             {
                 cout << "Out of list dimension." << endl;
@@ -69,8 +73,8 @@ int PolygonSelection(string question, int dim)
         } else
         {
             cout << "Error: invalid input." << endl;
-            cin.clear(); // Resetta lo stato di errore di cin
-            cin.ignore(MAX_IN_LENGHT, '\n'); // Svuota il buffer
+            cin.clear(); // resetta lo stato di errore di cin
+            cin.ignore(MAX_IN_LENGHT, '\n'); // svuota il buffer
         }
     }
 }
@@ -87,6 +91,7 @@ float EnterDim(string question)
         cout << question;
         if(cin >> newDim)
         {
+            // se dopo il numero c'e uno spazio o un invio ed e' positivo, e' buono
             if ((cin.peek() == '\n' || cin.peek() == ' ' || cin.peek() == EOF) && newDim >= 0)
             {
                 cin.ignore(MAX_IN_LENGHT, '\n'); 

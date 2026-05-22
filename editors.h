@@ -9,7 +9,7 @@
 #include "CShape.h"
 #include "choice.h"
 #include <iostream>
-
+//parametrizzazione dei limiti fisici della griglia, utili se un domani varia la grandezza.
 #define GRID_X_LENGHT 100.0
 #define GRID_Y_LENGHT 100.0
 

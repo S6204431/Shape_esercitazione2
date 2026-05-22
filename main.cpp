@@ -18,8 +18,10 @@ using namespace std;
 /// @return exit code
 int main()
 {   
+    // array di puntatori per sfruttare il polimorfismo
     Shape* shapes[MAX_SHAPES];
     
+    //lo inizializzo a null
     for (int i = 0; i < MAX_SHAPES; i++)
     {
         shapes[i] = NULL;
@@ -29,7 +31,7 @@ int main()
     int choice = -1;
 
     cout << "===== TEST GERARCHIA SHAPE =====" << endl;
-
+    // loop infinito del menu finche l'utente non preme 0
     while(choice != 0)
     {
         choice = menu();
@@ -63,8 +65,9 @@ int main()
         }
     }
 
-    // 5. delete shapes
-    for (int i = 0; i < nShapes; i++) {
+    // svuoto e dealloco tutto quello che e' rimasto prima di chiudere
+    for (int i = 0; i < nShapes; i++)
+    {
         if(shapes[i] != NULL)
         {
             delete(shapes[i]);
