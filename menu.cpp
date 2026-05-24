@@ -125,9 +125,20 @@ void NewPolygon(Shape** arrayPtr, int *dim)
 
     //l'utente imposta i dati
     cout << "\nEnter position: " << endl;
-    editPosition(arrayPtr, *dim);
+    //nel caso in cui la posizione (vale lo stesso per le dimensioni) non sia valida e l'utente rinunci a ritentare, bisogna evitare un memory leak che ci sarebbe se non si cancellassero questi poligoni "fantasma" che rimangono in lista
+    if(editPosition(arrayPtr, *dim) == -1)
+    {
+        delete arrayPtr[*dim];
+        arrayPtr[*dim] = NULL;
+        return;
+    }
     cout << "Enter dimensions: " << endl;
-    editDim(arrayPtr, *dim);
+    if(editDim(arrayPtr, *dim) == -1)
+    {
+        delete arrayPtr[*dim];
+        arrayPtr[*dim] = NULL;
+        return;
+    }
     editText(arrayPtr, *dim);
     //aggiorno la quantità di figure
     (*dim)++;

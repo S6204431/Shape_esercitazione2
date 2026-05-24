@@ -17,8 +17,8 @@ using namespace std;
 
 /// @name EDIT FUNCTIONS
 /// @{
-void editDim(Shape** arrayPtr, int index);
-void editPosition(Shape** arrayPtr, int index);
+int editDim(Shape** arrayPtr, int index);
+int editPosition(Shape** arrayPtr, int index);
 void editText(Shape** arrayPtr, int index);
 /// @}
 

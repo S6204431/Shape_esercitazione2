@@ -13,7 +13,7 @@ using namespace std;
 /// @brief editing the dimensions of a polygon
 /// @param arrayPtr array of shape pointers
 /// @param index the index of the shape to be modified
-void editDim(Shape** arrayPtr, int index)
+int editDim(Shape** arrayPtr, int index)
 {
     float newW, newH;       //le nuove dimensioni
 
@@ -30,7 +30,7 @@ void editDim(Shape** arrayPtr, int index)
             if(ChoiceCheck("Want to try again? (y/n) ", YNWhitelist, YN_WHITELIST_LENGHT, YN_WHITELIST_CHOICES) == 1)
             {
                 cout << "Exiting the edit; returning to menu.\n" << endl;
-                return;
+                return -1;
             }
         } else
         {
@@ -39,12 +39,13 @@ void editDim(Shape** arrayPtr, int index)
             break;
         }
     }
+    return 0;
 }
 
 /// @brief editing the position of a polygon
 /// @param arrayPtr array of shape pointers
 /// @param index the index of the shape to be modified
-void editPosition(Shape** arrayPtr, int index)
+int editPosition(Shape** arrayPtr, int index)
 {
     float newX, newY;       //le nuove posizioni
     while(1)
@@ -59,7 +60,7 @@ void editPosition(Shape** arrayPtr, int index)
             if(ChoiceCheck("Want to try again? (y/n) ", YNWhitelist, YN_WHITELIST_LENGHT, YN_WHITELIST_CHOICES) == 1)
             {
                 cout << "Position editing cancelled; returning to menu.\n" << endl;
-                return;
+                return -1;
             }
         } else
         {
@@ -68,6 +69,7 @@ void editPosition(Shape** arrayPtr, int index)
             break;
         }
     }
+    return 0;
 }
 
 /// @brief edits the text of a polygon
